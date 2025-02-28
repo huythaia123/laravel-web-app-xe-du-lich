@@ -1,6 +1,10 @@
+import Footer from '@/components/Footer';
+import About from '@/components/home-section/About';
 import BookCar from '@/components/home-section/BookCar';
+import CarFare from '@/components/home-section/CarFare';
 import HeadingTitle from '@/components/home-section/HeadingTitle';
 import Slider from '@/components/home-section/Slider';
+import TourFare from '@/components/home-section/TourFare';
 import { RootState } from '@/redux/store';
 import { type SharedData } from '@/types';
 import { Head, usePage } from '@inertiajs/react';
@@ -46,6 +50,7 @@ export default function Home() {
             )}
           </nav> */}
       <HeadingTitle />
+
       <div className='bg-[url("/resources/js/components/home-section/background.webp")] bg-cover bg-center bg-no-repeat'>
         <div className='className="container lg:px-2" mx-auto max-w-6xl'>
           <div className="flex flex-col-reverse md:gap-7 lg:flex-row lg:py-5">
@@ -54,6 +59,14 @@ export default function Home() {
           </div>
         </div>
       </div>
+      <div className="container mx-auto max-w-6xl lg:px-2">
+        <div className="px-2 lg:px-0">
+          <CarFare />
+          <TourFare />
+          <About />
+        </div>
+      </div>
+      <Footer />
     </>
   );
 }

@@ -21,7 +21,7 @@ const initialState: WebInfoType = {
   },
 };
 
-export const webInfoSlice = createSlice({
+export const infoSlice = createSlice({
   name: 'webInfo',
   initialState,
   reducers: {
@@ -34,6 +34,6 @@ export const webInfoSlice = createSlice({
   },
 });
 
-export const { setWebInfo } = webInfoSlice.actions;
-const webInfoReducer = webInfoSlice.reducer;
+export const { setWebInfo } = infoSlice.actions;
+const webInfoReducer = infoSlice.reducer;
 export default webInfoReducer;

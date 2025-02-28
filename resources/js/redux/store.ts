@@ -1,11 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import counterReducer from './slices/counterSlice';
-import webInfoReducer from './slices/webInfoSlice';
+import infoReducer from './slices/infoSlice';
 
 export const store = configureStore({
   reducer: {
     counter: counterReducer,
-    webInfo: webInfoReducer,
+    info: infoReducer,
   },
 });
 
