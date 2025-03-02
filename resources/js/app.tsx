@@ -3,11 +3,11 @@ import '../css/app.css';
 import { createInertiaApp } from '@inertiajs/react';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { createRoot } from 'react-dom/client';
+import { Toaster } from 'react-hot-toast';
 import { Provider as ReduxProvider } from 'react-redux';
 import { route as routeFn } from 'ziggy-js';
 import { initializeTheme } from './hooks/use-appearance';
 import { store } from './redux/store';
-
 declare global {
   const route: typeof routeFn;
 }
@@ -27,6 +27,7 @@ createInertiaApp({
     root.render(
       <ReduxProvider store={store}>
         <App {...props} />
+        <Toaster position="top-center" reverseOrder={false} />
       </ReduxProvider>,
     );
   },
