@@ -10,7 +10,7 @@ import {
 } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/react';
-import { BookOpen, Folder, LayoutGrid } from 'lucide-react';
+import { BookOpen, CarIcon, Folder, LayoutGrid } from 'lucide-react';
 import AppLogo from './app-logo';
 import { NavMain } from './nav-main';
 import { NavUser } from './nav-user';
@@ -20,6 +20,11 @@ const mainNavItems: NavItem[] = [
     title: 'Bảng điều khiển',
     url: '/dashboard',
     icon: LayoutGrid,
+  },
+  {
+    title: 'Quản lý đặt xe',
+    url: '/car-booking-management',
+    icon: CarIcon,
   },
 ];
 

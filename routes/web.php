@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BookCarController;
+use App\Http\Controllers\Dashboard\CarBookingManagerController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -15,8 +16,11 @@ Route::post('/book-cars', [BookCarController::class, 'store'])
 
 Route::middleware(['auth'])->group(function () {
     Route::get('dashboard', function () {
-        return Inertia::render('dashboard');
+        return Inertia::render('Dashboard');
     })->name('dashboard');
+
+    Route::get("/car-booking-management", [CarBookingManagerController::class, 'ListCarBooking'])
+        ->name('car-booking-management');
 });
 
 require __DIR__ . '/settings.php';

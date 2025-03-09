@@ -31,7 +31,7 @@ class BookCarController extends Controller
      */
     public function store(StoreBookCarRequest $request)
     {
-        Log::info($request->input());
+        // Log::info($request->input());
 
         $bookCar = BookCar::create($request->input());
         // return session()->flash('success', 'Đặt xe thành công!');
