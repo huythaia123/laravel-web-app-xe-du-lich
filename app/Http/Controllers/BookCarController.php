@@ -35,7 +35,9 @@ class BookCarController extends Controller
 
         $bookCar = BookCar::create($request->input());
         // return session()->flash('success', 'Đặt xe thành công!');
-        return to_route('home')->with('success', 'Đặt xe thành công!');
+        // return to_route('home')->with('success', 'Đặt xe thành công!');
+        // return redirect()->route('home')->with('success', 'Đặt xe thành công!');
+        return back()->with('success', 'Đặt xe thành công!');
     }
 
     /**

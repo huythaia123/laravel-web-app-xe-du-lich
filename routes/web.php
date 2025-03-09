@@ -10,12 +10,10 @@ Route::get('/', function () {
 })->name('home');
 
 Route::post('/book-cars', [BookCarController::class, 'store'])
-    ->middleware('guest')
     ->name('book-cars.store');
 
-
 Route::middleware(['auth'])->group(function () {
-    Route::get('dashboard', function () {
+    Route::get('/dashboard', function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
 

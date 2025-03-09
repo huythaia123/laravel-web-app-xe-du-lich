@@ -110,6 +110,18 @@ const BookCar = ({ className = '' }: { className?: string }) => {
             id="so_dien_thoai"
             register={form.register('so_dien_thoai', {
               required: 'Bạn chưa nhập số điện thoại',
+              pattern: {
+                value: /^(0|\+84)[1-9][0-9]{8}$/,
+                message: 'Số điện thoại không hợp lệ',
+              },
+              minLength: {
+                value: 10,
+                message: 'Số điện thoại phải có ít nhất 10 chữ số',
+              },
+              maxLength: {
+                value: 11,
+                message: 'Số điện thoại không được quá 11 chữ số',
+              },
             })}
           />
           <div className="flex flex-col gap-3 md:flex-row">

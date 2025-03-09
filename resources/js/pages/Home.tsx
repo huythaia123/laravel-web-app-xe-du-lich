@@ -5,7 +5,7 @@ import CarFare from '@/components/home-section/CarFare';
 import HeadingTitle from '@/components/home-section/HeadingTitle';
 import Slider from '@/components/home-section/Slider';
 import TourFare from '@/components/home-section/TourFare';
-import { type SharedData } from '@/types';
+import { SharedData } from '@/types';
 import { Head, Link, usePage } from '@inertiajs/react';
 
 export default function Home() {
@@ -13,13 +13,8 @@ export default function Home() {
 
   return (
     <>
-      <Head title="Trang chủ">
-        {/* <link rel="preconnect" href="https://fonts.bunny.net" />
-        <link
-          href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600"
-          rel="stylesheet"
-        /> */}
-      </Head>
+      <Head title="Trang chủ"></Head>
+
       <nav className="flex items-center justify-end gap-4">
         {auth.user ? (
           <Link
@@ -45,6 +40,7 @@ export default function Home() {
           </>
         )}
       </nav>
+
       <HeadingTitle />
 
       <div className='bg-[url("/resources/js/components/home-section/background.webp")] bg-cover bg-center bg-no-repeat'>
