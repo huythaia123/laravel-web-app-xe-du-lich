@@ -12,8 +12,8 @@ class CarBookingManagerController extends Controller
 {
     public function ListCarBooking()
     {
-        $bookCar = BookCar::all();
-        Log::info($bookCar);
+        $bookCar = BookCar::orderBy('id', 'desc')->get();
+
         return Inertia::render('CarBookingManager', ['listBookCar' => $bookCar]);
     }
 }

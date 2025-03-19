@@ -91,10 +91,10 @@ const AddressAutocomplete = ({
       <input
         id={id}
         type="text"
-        value={query}
         className="flex-1 rounded-tr-md rounded-br-md bg-white px-3"
         placeholder={`Nhập ${label ? label.toLowerCase() : '...'}`}
         defaultValue={defaultValue}
+        value={query}
         autoComplete="off"
         {...register}
         onBlur={() => setTimeout(() => setIsFocused(false), 200)} // Delay để tránh mất focus trước khi chọn item
