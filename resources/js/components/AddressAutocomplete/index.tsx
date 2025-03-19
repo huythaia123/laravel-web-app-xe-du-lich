@@ -3,10 +3,10 @@ import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
 
 type Props = {
-  label: string;
   id: string;
-  defaultValue?: string;
+  label: string;
   register?: any;
+  defaultValue?: string;
   onSelect: (prediction: Prediction) => void;
 };
 const AddressAutocomplete = ({
@@ -92,14 +92,15 @@ const AddressAutocomplete = ({
         id={id}
         type="text"
         value={query}
-        autoComplete="off"
-        defaultValue={defaultValue}
         className="flex-1 rounded-tr-md rounded-br-md bg-white px-3"
+        placeholder={`Nhập ${label ? label.toLowerCase() : '...'}`}
+        defaultValue={defaultValue}
+        autoComplete="off"
+        {...register}
+        onBlur={() => setTimeout(() => setIsFocused(false), 200)} // Delay để tránh mất focus trước khi chọn item
+        onFocus={() => setIsFocused(true)}
         onChange={handleInputChange}
         onKeyDown={handleKeyDown}
-        onFocus={() => setIsFocused(true)}
-        onBlur={() => setTimeout(() => setIsFocused(false), 200)} // Delay để tránh mất focus trước khi chọn item
-        placeholder={`Nhập ${label ? label.toLowerCase() : '...'}`}
       />
       {suggestions.length > 0 && isFocused && (
         <ul
