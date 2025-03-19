@@ -1,6 +1,5 @@
 import AddressAutocomplete from '@/components/AddressAutocomplete';
 import Divider from '@/components/Divider';
-import { Prediction } from '@/types/autoCompleteResponse';
 import { router, usePage } from '@inertiajs/react';
 import { ArrowRightCircleIcon, ClockIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
@@ -56,16 +55,6 @@ const BookCar = ({ className = '' }: { className?: string }) => {
     }, 0);
   };
 
-  const [selectedAddress, setSelectedAddress] = useState<string>('');
-  const [selectedPrediction, setSelectedPrediction] =
-    useState<Prediction | null>(null);
-
-  const handleAddressSelect = (prediction: Prediction) => {
-    setSelectedAddress(prediction.description);
-    setSelectedPrediction(prediction);
-    console.log('Chi tiết địa chỉ:', prediction);
-  };
-
   useEffect(() => {
     if ((flash as FlashType).success) {
       setIsOpen(true);
@@ -80,36 +69,22 @@ const BookCar = ({ className = '' }: { className?: string }) => {
           onSubmit={form.handleSubmit(formSubmitHandler)}
           className="space-y-4 px-2 py-3 md:px-8 md:py-5"
         >
-          {/* <BookCarInput
-            label="Điểm đón"
-            id="diem_don"
-            register={form.register('diem_don', {
-              required: 'Bạn chưa nhập điểm đón',
-            })}
-          /> */}
           <AddressAutocomplete
             label="Điểm đón"
             id="diem_don"
             register={form.register('diem_don', {
               required: 'Bạn chưa nhập điểm đón',
             })}
-            onSelect={handleAddressSelect}
+            onSelect={(value) => form.setValue('diem_don', value)}
           />
 
-          {/* <BookCarInput
-            label="Điểm đến"
-            id="diem_den"
-            register={form.register('diem_den', {
-              required: 'Bạn chưa nhập điểm đến',
-            })}
-          /> */}
           <AddressAutocomplete
             label="Điểm đến"
             id="diem_den"
             register={form.register('diem_den', {
               required: 'Bạn chưa nhập điểm đến',
             })}
-            onSelect={handleAddressSelect}
+            onSelect={(value) => form.setValue('diem_den', value)}
           />
 
           <div className="flex justify-between px-1.5">

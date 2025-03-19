@@ -1,71 +1,54 @@
-import { AutoCompleteResponse, Prediction } from '@/types/autoCompleteResponse';
+import { Prediction } from '@/types/autoCompleteResponse';
 import axios from 'axios';
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { UseFormRegisterReturn } from 'react-hook-form';
 
 type Props = {
   id: string;
   label: string;
-  register?: any;
-  defaultValue?: string;
-  onSelect: (prediction: Prediction) => void;
+  register: UseFormRegisterReturn;
+  onSelect: (selectedAddress: string) => void;
 };
-const AddressAutocomplete = ({
-  id,
-  label,
-  onSelect,
-  defaultValue,
-  register,
-}: Props) => {
-  const [query, setQuery] = useState<string>('');
+
+const AddressAutocomplete = ({ id, label, register, onSelect }: Props) => {
   const [suggestions, setSuggestions] = useState<Prediction[]>([]);
   const [selectedIndex, setSelectedIndex] = useState<number>(-1);
   const [isFocused, setIsFocused] = useState<boolean>(false);
   const suggestionsRef = useRef<HTMLUListElement>(null);
 
-  useEffect(() => {
+  const handleInputChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const query = e.target.value;
     if (query.length < 3) {
       setSuggestions([]);
       return;
     }
 
-    const delayDebounce = setTimeout(async () => {
-      try {
-        const response = await axios.get<AutoCompleteResponse>(
-          `/api/map/autocomplete?input=${query}`,
-        );
-        setSuggestions(response.data.predictions || []);
-      } catch (error) {
-        console.error('Error fetching suggestions:', error);
-      }
-    }, 300);
-
-    return () => clearTimeout(delayDebounce);
-  }, [query]);
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setQuery(e.target.value);
-    setSelectedIndex(-1);
-    setIsFocused(true);
+    try {
+      const response = await axios.get<{ predictions: Prediction[] }>(
+        `/api/map/autocomplete?input=${query}`,
+      );
+      setSuggestions(response.data.predictions || []);
+    } catch (error) {
+      console.error('Error fetching suggestions:', error);
+    }
   };
 
   const handleSelect = (index: number) => {
     if (suggestions[index]) {
-      setQuery(suggestions[index].description);
+      const selectedAddress = suggestions[index].description;
       setSuggestions([]);
       setSelectedIndex(-1);
       setIsFocused(false);
-      onSelect(suggestions[index]);
+      onSelect(selectedAddress); // Gửi địa chỉ đã chọn lên form cha
     }
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'ArrowDown') {
-      setSelectedIndex((prevIndex) =>
-        Math.min(prevIndex + 1, suggestions.length - 1),
-      );
-    } else if (e.key === 'ArrowUp') {
-      setSelectedIndex((prevIndex) => Math.max(prevIndex - 1, 0));
-    } else if (e.key === 'Enter' && selectedIndex >= 0) {
+    if (e.key === 'ArrowDown')
+      setSelectedIndex((prev) => Math.min(prev + 1, suggestions.length - 1));
+    else if (e.key === 'ArrowUp')
+      setSelectedIndex((prev) => Math.max(prev - 1, 0));
+    else if (e.key === 'Enter' && selectedIndex >= 0) {
       e.preventDefault();
       handleSelect(selectedIndex);
     }
@@ -84,7 +67,7 @@ const AddressAutocomplete = ({
     <div className="relative flex w-full">
       <label
         htmlFor={id}
-        className={`inline-block w-[120px] cursor-pointer items-center rounded-tl-md rounded-bl-md bg-[#ff9000] px-4 py-3 text-center text-xs text-gray-50 select-none sm:text-sm`}
+        className="inline-block w-[120px] cursor-pointer rounded-tl-md rounded-bl-md bg-[#ff9000] px-4 py-3 text-center text-xs text-gray-50 select-none sm:text-sm"
       >
         {label}
       </label>
@@ -92,14 +75,12 @@ const AddressAutocomplete = ({
         id={id}
         type="text"
         className="flex-1 rounded-tr-md rounded-br-md bg-white px-3"
-        placeholder={`Nhập ${label ? label.toLowerCase() : '...'}`}
-        defaultValue={defaultValue}
-        value={query}
+        placeholder={`Nhập ${label.toLowerCase()}`}
         autoComplete="off"
         {...register}
-        onBlur={() => setTimeout(() => setIsFocused(false), 200)} // Delay để tránh mất focus trước khi chọn item
-        onFocus={() => setIsFocused(true)}
         onChange={handleInputChange}
+        onBlur={() => setTimeout(() => setIsFocused(false), 200)}
+        onFocus={() => setIsFocused(true)}
         onKeyDown={handleKeyDown}
       />
       {suggestions.length > 0 && isFocused && (
