@@ -38,7 +38,10 @@ const DetailCarBooking = ({ bookCarInfo }: DetailCarBookingProps) => {
         <TableRow>
           <TableCell>Số điện thoại</TableCell>
           <TableCell>
-            <a href={`tel:${formatPhoneNumber(bookCarInfo.so_dien_thoai)}`}>
+            <a
+              className="cursor-pointer text-blue-600 underline"
+              href={`tel:${bookCarInfo.so_dien_thoai}`}
+            >
               {formatPhoneNumber(bookCarInfo.so_dien_thoai)}
             </a>
           </TableCell>

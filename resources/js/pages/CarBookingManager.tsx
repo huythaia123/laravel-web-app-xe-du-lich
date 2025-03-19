@@ -12,6 +12,7 @@ import {
 } from '@/components/ui/table';
 import AppLayout from '@/layouts/app-layout';
 import { BookCarInfo, BreadcrumbItem } from '@/types';
+import formatPhoneNumber from '@/utils/formatPhoneNumber';
 import { Head } from '@inertiajs/react';
 import { XIcon } from 'lucide-react';
 
@@ -62,7 +63,15 @@ const CarBookingManager = ({ listBookCar }: CarBookingManagerProps) => {
                   <TableRow>
                     <TableCell className="font-medium">{item.id}</TableCell>
                     <TableCell>{item.ho_ten}</TableCell>
-                    <TableCell>{item.so_dien_thoai}</TableCell>
+                    <TableCell>
+                      <a
+                        target="_blank"
+                        className="cursor-pointer text-blue-600 hover:underline"
+                        href={`tel:${item.so_dien_thoai}`}
+                      >
+                        {formatPhoneNumber(item.so_dien_thoai)}
+                      </a>
+                    </TableCell>
                     <TableCell className="text-right">
                       {new Date(item.created_at).toLocaleString()}
                     </TableCell>
