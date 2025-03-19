@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AutocompleteController;
 use App\Http\Controllers\BookCarController;
 use App\Http\Controllers\Dashboard\CarBookingManagerController;
 use Illuminate\Support\Facades\Route;
@@ -11,6 +12,7 @@ Route::get('/', function () {
 
 Route::post('/book-cars', [BookCarController::class, 'store'])
     ->name('book-cars.store');
+
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', function () {
