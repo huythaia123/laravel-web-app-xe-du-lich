@@ -31,12 +31,9 @@ class BookCarController extends Controller
      */
     public function store(StoreBookCarRequest $request)
     {
+        $bookCar = BookCar::create($request->input());
         // Log::info($request->input());
 
-        $bookCar = BookCar::create($request->input());
-        // return session()->flash('success', 'Đặt xe thành công!');
-        // return to_route('home')->with('success', 'Đặt xe thành công!');
-        // return redirect()->route('home')->with('success', 'Đặt xe thành công!');
         return back()->with('success', 'Đặt xe thành công!');
     }
 
@@ -63,6 +60,8 @@ class BookCarController extends Controller
     // {
     //     //
     // }
+
+
 
     /**
      * Remove the specified resource from storage.

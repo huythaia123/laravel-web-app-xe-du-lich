@@ -16,4 +16,13 @@ class CarBookingManagerController extends Controller
 
         return Inertia::render('CarBookingManager', ['listBookCar' => $bookCar]);
     }
+
+
+    public function deleteById($book_car_id)
+    {
+        $bookCar = BookCar::where('id', $book_car_id)->firstOrFail();
+        $bookCar->delete();
+
+        return back()->with('success', 'Bản ghi đã được xoá!');
+    }
 }

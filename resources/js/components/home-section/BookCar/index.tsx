@@ -1,5 +1,6 @@
 import AddressAutocomplete from '@/components/AddressAutocomplete';
 import Divider from '@/components/Divider';
+import { FlashType } from '@/types/FlashType';
 import { router, usePage } from '@inertiajs/react';
 import { ArrowRightCircleIcon, ClockIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
@@ -10,8 +11,6 @@ import BookCarInput from './BookCarInput';
 import BookCarSelect from './BookCarSelect';
 import BookCarSuccess from './BookCarSuccess';
 
-type FlashType = { success: string };
-
 type FormInput = {
   diem_don: string;
   diem_den: string;
@@ -21,7 +20,7 @@ type FormInput = {
   ho_ten: string;
   so_dien_thoai: string;
   thoi_gian_don: string;
-  thoi_gian_cho: number;
+  thoi_gian_cho: string;
 };
 const BookCar = ({ className = '' }: { className?: string }) => {
   const { flash } = usePage().props;
@@ -29,11 +28,14 @@ const BookCar = ({ className = '' }: { className?: string }) => {
 
   /* form Submit Handler */
   const form = useForm<FormInput>({
-    defaultValues: { check_hai_chieu: false, check_vat: false },
+    defaultValues: {
+      check_hai_chieu: false,
+      check_vat: false,
+      thoi_gian_cho: '0',
+    },
   });
 
   const formSubmitHandler: SubmitHandler<FormInput> = async (payload) => {
-    // console.log(payload);
     router.post(route('book-cars.store'), payload, {
       onFinish: () => {},
     });
@@ -152,9 +154,16 @@ const BookCar = ({ className = '' }: { className?: string }) => {
             <div className="relative flex-1">
               <input
                 {...form.register('thoi_gian_cho', {
-                  required: 'Bạn chưa nhập thời gian chờ',
+                  // required: 'Bạn chưa nhập thời gian chờ',
+                  validate: (value) =>
+                    /^\d+$/.test(value) || 'Thời gian chờ không hợp lệ (phút)',
                 })}
-                type="number"
+                onInput={(e) => {
+                  e.currentTarget.value = e.currentTarget.value.replace(
+                    /[^0-9]/g,
+                    '',
+                  ); // Chỉ cho phép số
+                }}
                 placeholder="Nhập thời gian chờ (phút)."
                 className="w-full rounded-md bg-white px-3 py-2 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
               />

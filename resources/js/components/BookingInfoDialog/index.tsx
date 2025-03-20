@@ -1,7 +1,11 @@
 import { BookCarInfo } from '@/types';
+import { FlashType } from '@/types/FlashType';
+import { router, usePage } from '@inertiajs/react';
 import { format } from 'date-fns';
 import { vi } from 'date-fns/locale';
 import { Info } from 'lucide-react';
+import { useEffect } from 'react';
+import toast from 'react-hot-toast';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -24,6 +28,25 @@ const BookingInfoDialog = ({
 }: {
   carBookingInfo: BookCarInfo;
 }) => {
+  const { flash } = usePage().props;
+
+  const handleDelete = (bookCarId: number) => {
+    const ok = confirm('Bạn có chắc chắn muốn xoá không');
+    // alert(`${ok} - ${bookCarId}`);
+    if (ok) {
+      router.delete(
+        route('car-booking-management.delete', { book_car_id: bookCarId }),
+      );
+    }
+  };
+
+  useEffect(() => {
+    if ((flash as FlashType).success) {
+      // setIsOpen(true);
+      toast.success((flash as FlashType).success);
+    }
+  }, [flash]);
+
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
@@ -118,7 +141,7 @@ const BookingInfoDialog = ({
                   Thời gian chờ
                 </td>
                 <td className="p-2 text-base tracking-wide break-words hover:bg-gray-100">
-                  {carBookingInfo.thoi_gian_cho}
+                  {carBookingInfo.thoi_gian_cho} Phút
                 </td>
               </tr>
               <tr className="border">
@@ -146,6 +169,7 @@ const BookingInfoDialog = ({
             <Button
               variant={'outline'}
               className="cursor-pointer bg-red-500 text-white hover:bg-red-500/80 hover:text-white"
+              onClick={() => handleDelete(carBookingInfo.id)}
             >
               Xoá
             </Button>

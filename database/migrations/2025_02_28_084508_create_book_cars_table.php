@@ -25,6 +25,7 @@ return new class extends Migration
             $table->integer('thoi_gian_cho');
 
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -33,6 +34,9 @@ return new class extends Migration
      */
     public function down(): void
     {
+        // Schema::table('book_cars', function (Blueprint $table) {
+        //     $table->dropSoftDeletes();
+        // });
         Schema::dropIfExists('book_cars');
     }
 };

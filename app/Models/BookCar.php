@@ -4,11 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class BookCar extends Model
 {
     /** @use HasFactory<\Database\Factories\BookCarFactory> */
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     // Khai báo tên bảng (không bắt buộc nếu theo chuẩn Laravel)
     // protected $table = 'book_cars';
