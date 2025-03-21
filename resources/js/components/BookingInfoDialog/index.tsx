@@ -17,17 +17,17 @@ import {
   AlertDialogTrigger,
 } from '../ui/alert-dialog';
 import { Button } from '../ui/button';
+import TableInfoRow from './TableInfoRow';
 
 const formatDate = (dateStr: string) => {
   const date = new Date(dateStr);
   return format(date, 'dd/MM/yyyy HH:mm', { locale: vi });
 };
 
-const BookingInfoDialog = ({
-  carBookingInfo,
-}: {
+type Props = {
   carBookingInfo: BookCarInfo;
-}) => {
+};
+const BookingInfoDialog = ({ carBookingInfo }: Props) => {
   const { flash } = usePage().props;
 
   const handleDelete = (bookCarId: number) => {
@@ -60,106 +60,56 @@ const BookingInfoDialog = ({
         <AlertDialogHeader>
           <AlertDialogTitle>Thông tin chi tiết</AlertDialogTitle>
         </AlertDialogHeader>
+
         {/* Bảng hiển thị thông tin */}
         <div className="overflow-auto">
           <table className="w-full border-collapse border text-sm">
             <tbody>
-              <tr className="border">
-                <td className="w-40 bg-gray-100 p-2 text-base font-semibold tracking-wide">
-                  ID
-                </td>
-                <td className="p-2 text-base tracking-wide break-words hover:bg-gray-100">
-                  {carBookingInfo.id}
-                </td>
-              </tr>
-              <tr className="border">
-                <td className="w-40 bg-gray-100 p-2 text-base font-semibold tracking-wide">
-                  Họ tên
-                </td>
-                <td className="p-2 text-base tracking-wide break-words hover:bg-gray-100">
-                  {carBookingInfo.ho_ten}
-                </td>
-              </tr>
-              <tr className="border">
-                <td className="w-40 bg-gray-100 p-2 text-base font-semibold tracking-wide">
-                  Điểm đón
-                </td>
-                <td className="p-2 text-base tracking-wide break-words hover:bg-gray-100">
-                  {carBookingInfo.diem_don}
-                </td>
-              </tr>
-              <tr className="border">
-                <td className="w-40 bg-gray-100 p-2 text-base font-semibold tracking-wide">
-                  Điểm đến
-                </td>
-                <td className="p-2 text-base tracking-wide break-words hover:bg-gray-100">
-                  {carBookingInfo.diem_den}
-                </td>
-              </tr>
-              <tr className="border">
-                <td className="w-40 bg-gray-100 p-2 text-base font-semibold tracking-wide">
-                  Hai chiều
-                </td>
-                <td className="p-2 text-base tracking-wide break-words hover:bg-gray-100">
-                  {carBookingInfo.check_hai_chieu ? 'Có' : 'Không'}
-                </td>
-              </tr>
-              <tr className="border">
-                <td className="w-40 bg-gray-100 p-2 text-base font-semibold tracking-wide">
-                  VAT
-                </td>
-                <td className="p-2 text-base tracking-wide break-words hover:bg-gray-100">
-                  {carBookingInfo.check_vat ? 'Có' : 'Không'}
-                </td>
-              </tr>
-              <tr className="border">
-                <td className="w-40 bg-gray-100 p-2 text-base font-semibold tracking-wide">
-                  Loại xe
-                </td>
-                <td className="p-2 text-base tracking-wide break-words hover:bg-gray-100">
-                  {carBookingInfo.loai_xe} Chỗ
-                </td>
-              </tr>
-              <tr className="border">
-                <td className="w-40 bg-gray-100 p-2 text-base font-semibold tracking-wide">
-                  Số điện thoại
-                </td>
-                <td className="p-2 text-base tracking-wide break-words hover:bg-gray-100">
-                  {carBookingInfo.so_dien_thoai}
-                </td>
-              </tr>
-              <tr className="border">
-                <td className="w-40 bg-gray-100 p-2 text-base font-semibold tracking-wide">
-                  Thời gian đón
-                </td>
-                <td className="p-2 text-base tracking-wide break-words hover:bg-gray-100">
-                  {formatDate(carBookingInfo.thoi_gian_don)}
-                </td>
-              </tr>
-              <tr className="border">
-                <td className="w-40 bg-gray-100 p-2 text-base font-semibold tracking-wide">
-                  Thời gian chờ
-                </td>
-                <td className="p-2 text-base tracking-wide break-words hover:bg-gray-100">
-                  {carBookingInfo.thoi_gian_cho} Phút
-                </td>
-              </tr>
-              <tr className="border">
-                <td className="w-40 bg-gray-100 p-2 text-base font-semibold tracking-wide">
-                  Thời gian đặt xe
-                </td>
-                <td className="p-2 text-base tracking-wide break-words hover:bg-gray-100">
-                  {formatDate(carBookingInfo.created_at)}
-                </td>
-              </tr>
-              <tr className="border">
-                <td className="w-40 bg-gray-100 p-2 text-base font-semibold tracking-wide">
-                  Chỉnh sửa lần cuối
-                </td>
-                <td className="p-2 text-base tracking-wide break-words hover:bg-gray-100">
-                  {formatDate(carBookingInfo.updated_at)}
-                </td>
-              </tr>
+              <TableInfoRow title="ID" description={carBookingInfo.id} />
+              <TableInfoRow
+                title="Họ tên"
+                description={carBookingInfo.ho_ten}
+              />
+              <TableInfoRow
+                title="Điểm đón"
+                description={carBookingInfo.diem_don}
+              />
+              <TableInfoRow
+                title="Điểm đến"
+                description={carBookingInfo.diem_den}
+              />
+              <TableInfoRow
+                title="Hai chiều"
+                description={carBookingInfo.check_hai_chieu ? 'Có' : 'Không'}
+              />
+              <TableInfoRow
+                title="VAT"
+                description={carBookingInfo.check_vat ? 'Có' : 'Không'}
+              />
+              <TableInfoRow
+                title="Loại xe"
+                description={`${carBookingInfo.loai_xe} Chỗ`}
+              />
+              <TableInfoRow
+                title="Số điện thoại"
+                description={carBookingInfo.so_dien_thoai}
+              />
+              <TableInfoRow
+                title="Thời gian đón"
+                description={formatDate(carBookingInfo.thoi_gian_don)}
+              />
+              <TableInfoRow
+                title="Thời gian chờ"
+                description={`${carBookingInfo.thoi_gian_cho} Phút`}
+              />
+              <TableInfoRow
+                title="Thời gian đặt xe"
+                description={formatDate(carBookingInfo.created_at)}
+              />
+              <TableInfoRow
+                title="Chỉnh sửa lần cuối"
+                description={formatDate(carBookingInfo.updated_at)}
+              />
             </tbody>
           </table>
         </div>
