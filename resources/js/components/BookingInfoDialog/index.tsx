@@ -1,11 +1,7 @@
 import { BookCarInfo } from '@/types';
-import { FlashType } from '@/types/FlashType';
-import { router, usePage } from '@inertiajs/react';
-import { format } from 'date-fns';
-import { vi } from 'date-fns/locale';
+import formatDate from '@/utils/formatDate';
+import { router } from '@inertiajs/react';
 import { Info } from 'lucide-react';
-import { useEffect } from 'react';
-import toast from 'react-hot-toast';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -19,17 +15,10 @@ import {
 import { Button } from '../ui/button';
 import TableInfoRow from './TableInfoRow';
 
-const formatDate = (dateStr: string) => {
-  const date = new Date(dateStr);
-  return format(date, 'dd/MM/yyyy HH:mm', { locale: vi });
-};
-
 type Props = {
   carBookingInfo: BookCarInfo;
 };
 const BookingInfoDialog = ({ carBookingInfo }: Props) => {
-  const { flash } = usePage().props;
-
   const handleDelete = (bookCarId: number) => {
     const ok = confirm('Bạn có chắc chắn muốn xoá không');
     // alert(`${ok} - ${bookCarId}`);
@@ -39,13 +28,6 @@ const BookingInfoDialog = ({ carBookingInfo }: Props) => {
       );
     }
   };
-
-  useEffect(() => {
-    if ((flash as FlashType).success) {
-      // setIsOpen(true);
-      toast.success((flash as FlashType).success);
-    }
-  }, [flash]);
 
   return (
     <AlertDialog>
