@@ -26,7 +26,7 @@ type CarBookingManagerProps = {
 const CarBookingManager = ({ listBookCar }: CarBookingManagerProps) => {
   return (
     <AppLayout breadcrumbs={breadcrumbs}>
-      <Head title="Dashboard" />
+      <Head title="Quản lý đặt xe" />
       <div className="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
         <div className="border-sidebar-border/70 dark:border-sidebar-border relative min-h-[100vh] flex-1 rounded-xl border md:min-h-min">
           <Table>

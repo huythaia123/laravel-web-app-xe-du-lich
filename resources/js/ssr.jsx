@@ -15,7 +15,6 @@ createServer((page) =>
       });
       return pages[`./pages/${name}.tsx`];
     },
-    // prettier-ignore
     setup: ({ App, props }) => <App {...props} />,
   }),
 );

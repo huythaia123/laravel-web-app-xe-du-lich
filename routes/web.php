@@ -23,6 +23,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get("/car-booking-management", [CarBookingManagerController::class, 'ListCarBooking'])
         ->name('car-booking-management');
 
+    Route::get('/car-booking-management/{book_car_id}',  [CarBookingManagerController::class, 'pageCarBookingEdit'])
+        ->name('car-booking-management.edit');
+
     Route::delete('/car-booking-management/{book_car_id}',  [CarBookingManagerController::class, 'deleteById'])
         ->name('car-booking-management.delete');
 });

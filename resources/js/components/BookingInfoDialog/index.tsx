@@ -1,6 +1,6 @@
 import { BookCarInfo } from '@/types';
 import formatDate from '@/utils/formatDate';
-import { router } from '@inertiajs/react';
+import { Link, router } from '@inertiajs/react';
 import { Info } from 'lucide-react';
 import {
   AlertDialog,
@@ -21,7 +21,6 @@ type Props = {
 const BookingInfoDialog = ({ carBookingInfo }: Props) => {
   const handleDelete = (bookCarId: number) => {
     const ok = confirm('Bạn có chắc chắn muốn xoá không');
-    // alert(`${ok} - ${bookCarId}`);
     if (ok) {
       router.delete(
         route('car-booking-management.delete', { book_car_id: bookCarId }),
@@ -96,16 +95,31 @@ const BookingInfoDialog = ({ carBookingInfo }: Props) => {
           </table>
         </div>
         <AlertDialogFooter>
-          <AlertDialogCancel className="cursor-pointer">Đóng</AlertDialogCancel>
-          <AlertDialogAction asChild>
-            <Button
-              variant={'outline'}
-              className="cursor-pointer bg-red-500 text-white hover:bg-red-500/80 hover:text-white"
-              onClick={() => handleDelete(carBookingInfo.id)}
-            >
-              Xoá
-            </Button>
-          </AlertDialogAction>
+          <div className="flex gap-2">
+            <AlertDialogAction asChild>
+              <Button
+                variant={'outline'}
+                className="flex-1 cursor-pointer bg-red-500 text-white hover:bg-red-500/80 hover:text-white"
+                onClick={() => handleDelete(carBookingInfo.id)}
+              >
+                Xoá
+              </Button>
+            </AlertDialogAction>
+            <AlertDialogAction asChild>
+              <Button className="flex-1" asChild>
+                <Link
+                  href={route('car-booking-management.edit', {
+                    book_car_id: carBookingInfo.id,
+                  })}
+                >
+                  Chỉnh sửa
+                </Link>
+              </Button>
+            </AlertDialogAction>
+            <AlertDialogCancel className="flex-1 cursor-pointer">
+              Đóng
+            </AlertDialogCancel>
+          </div>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
