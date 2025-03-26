@@ -2,6 +2,8 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -35,6 +37,8 @@ return new class extends Migration
             $table->longText('payload');
             $table->integer('last_activity')->index();
         });
+
+        $this->seedUser();
     }
 
     /**
@@ -45,5 +49,15 @@ return new class extends Migration
         Schema::dropIfExists('users');
         Schema::dropIfExists('password_reset_tokens');
         Schema::dropIfExists('sessions');
+    }
+
+    private function seedUser()
+    {
+        DB::table('users')->insert([
+            'name' => "Huy Thái",
+            'email' => 'huythaia123@gmail.com',
+            'email_verified_at' => now(),
+            'password' =>  Hash::make('123456789a'),
+        ]);
     }
 };

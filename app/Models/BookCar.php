@@ -25,6 +25,11 @@ class BookCar extends Model
         'so_dien_thoai',
         'thoi_gian_don',
         'thoi_gian_cho',
+        'status_id',
+    ];
+
+    protected $attributes = [
+        "status_id" => 1 // default is 1 => cho_xac_nhan
     ];
 
     // Kiểu dữ liệu mong muốn cho từng cột
@@ -34,4 +39,9 @@ class BookCar extends Model
         'thoi_gian_don' => 'datetime',
         'thoi_gian_cho' => 'integer',
     ];
+
+    public function status()
+    {
+        return $this->belongsTo(BookCarStatus::class, 'status_id');
+    }
 }

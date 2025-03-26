@@ -36,6 +36,8 @@ return new class extends Migration
     {
         // Schema::table('book_cars', function (Blueprint $table) {
         //     $table->dropSoftDeletes();
+        //     $table->dropForeign('status_id');
+        //     $table->dropColumn('status_id');
         // });
         Schema::dropIfExists('book_cars');
     }

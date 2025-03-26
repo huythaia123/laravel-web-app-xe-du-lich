@@ -20,6 +20,7 @@ class CarBookingManagerController extends Controller
     public function pageCarBookingEdit($book_car_id)
     {
         $bookCar = BookCar::where('id', $book_car_id)->first();
+        // $bookCarStatuses = BookCar
 
         return Inertia::render('CarBookingEdit', ['bookCar' => $bookCar]);
     }
